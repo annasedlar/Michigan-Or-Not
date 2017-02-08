@@ -4,10 +4,44 @@
 }
 
 /* line 23, ../../compass/sass/styles.scss */
-div {
-  color: blue;
+body {
+  text-align: center;
+  margin: auto;
+  background-color: #ffcb05;
+  color: #00274c;
+  font-family: Helvetica;
 }
-/* line 25, ../../compass/sass/styles.scss */
-div p {
-  color: red;
+/* line 28, ../../compass/sass/styles.scss */
+body h1 {
+  font-size: 80px;
+  font-weight: bolder;
+}
+
+/* line 34, ../../compass/sass/styles.scss */
+.container {
+  background-color: white;
+  height: 100vh;
+  border-left: 10px solid #00274c;
+  border-right: 10px solid #00274c;
+}
+
+/* line 42, ../../compass/sass/styles.scss */
+div .photo-container {
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  margin: auto;
+  text-align: center;
+}
+/* line 50, ../../compass/sass/styles.scss */
+div .buttons {
+  margin-top: 30px;
+}
+/* line 52, ../../compass/sass/styles.scss */
+div .buttons #yes {
+  margin-right: 10px;
+}
+/* line 54, ../../compass/sass/styles.scss */
+div .buttons #no {
+  margin-left: 10px;
 }

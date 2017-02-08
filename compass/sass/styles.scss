@@ -20,9 +20,38 @@
 @import "views/payment";
 @import "views/account";
 
-div {
-	color: blue;
-	p{
-		color: red;
+body{text-align:center;
+	margin:auto;
+	background-color: #ffcb05;
+	color: #00274c;
+	font-family: Helvetica;
+	h1{
+		font-size: 80px;
+		font-weight: bolder;
+	}
+}
+
+.container{
+	background-color: white;
+	height: 100vh;
+	border-left: 10px solid #00274c;
+	border-right: 10px solid #00274c;
+}
+
+div{
+	.photo-container{
+		width: 500px;
+		height: 500px; 
+		border: 1px solid black; 
+		margin:auto; 
+		text-align: center;
+
+	}
+	.buttons{
+		margin-top: 30px;
+		#yes{margin-right: 10px
+		}
+		#no{margin-left: 10px
+		}
 	}
 }
