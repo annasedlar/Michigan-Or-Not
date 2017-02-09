@@ -22,13 +22,21 @@ router.get('/', function(req, res, next) {
 	getImagesQuery = "SELECT * from images WHERE id NOT IN"+
 	"(SELECT id FROM votes WHERE ip='"+req.ip+"');";
 
+	var trunc = "TRUNCATE TABLE michiganornot.votes;";
+
 	connection.query(getImagesQuery, (error, results, fields)=>{
 		// res.json(results);
 		var randomIndex = Math.floor(Math.random() * results.length);
+		var randomIndexArray = [];
 		// res.json(results[randomIndex]);
 		if(results.length == 0){
 			res.render('index', { 
 				msg: "There are no more images!"
+			})
+			connection.query(trunc, (error, results, fields)=>{
+			res.render('index', {
+				
+			})
 			})
 		}else{
 			res.render('index', { 
@@ -37,7 +45,7 @@ router.get('/', function(req, res, next) {
 				imageID: results[randomIndex].id,
 				name: results[randomIndex].name,
 				desc: results[randomIndex].desc
-				 });
+				});
 		}
 	})	
 });

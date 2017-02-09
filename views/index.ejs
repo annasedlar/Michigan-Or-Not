@@ -22,7 +22,10 @@
 		<h3>Did they go to the University of Michigan?</h3>
 	</div>
 	<% if (typeof msg !=='undefined') { %>
-		<h1>You guess 'em all!</h1>
+		<h1>You guessed 'em all!</h1>
+		<div class="buttons">
+			<Button class="btn-primary" id="again"Play Again!</Button>
+		</div>
 	<% }else{ %>
 		<div class="photo-container">
 			<img style="max-width:100%; max-height:100%; margin:auto" src="<%=imageToRender %>">
