@@ -15,6 +15,30 @@ var connection = mysql.createConnection({
 //after this line runs, our connection to MySql runs
 connection.connect();
 
+//Include Multer Module
+var multer = require('multer'); 
+//upload is the multer module with a dest object passed to it. 
+var upload = multer({ dest: 'public/images' });
+//specify the type to use later, it comes from upload
+var type = upload.single('imageToUpload');
+//we will need fs to read the file, it's part of core
+var fs = require('fs'); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var getImagesQuery = "SELECT * FROM images";
@@ -35,7 +59,7 @@ router.get('/', function(req, res, next) {
 			})
 			connection.query(trunc, (error, results, fields)=>{
 			res.render('index', {
-				
+
 			})
 			})
 		}else{
@@ -66,5 +90,61 @@ router.get('/vote/:voteDirection/:imageID/', (req, res, next)=>{
 router.get('/standings', function(req, res, next){
 	res.render('standings', {title: 'Standings'});
 })
+
+router.get('/testQ', (req,res,next)=>{
+	// var id1 = 1;
+	// var id2 = 3;
+	// var query = "SELECT * FROM images WHERE id > ? AND id < ?";
+	// connection.query(query, [id1, id2], (error, results, fields)=>{
+	// 	res.json(results);
+	// })
+	var imageIDVoted = 5;
+	var insertQuery = "INSERT INTO votes (ip, imageID, voteDirection) VALUES (?, ?, 'COOL')"
+	connection.query(insertQuery, [req.ip, imageIDVoted], (error, results, fields)=>{
+		var query = "SELECT * FROM votes";
+		connection.query(query, (error, results, fields)=>{
+			res.json(results);
+		})
+		// res.json("werk werk werk werk werk");
+	})
+});
+
+router.get('/uploadImage', (req, res, next)=>{
+	res.render('uploadImage', {})
+})
+
+router.post('/formSubmit', type, (req, res, next)=>{
+	// res.json(req.file);
+
+	//temorarily save the path where the file is at
+	var tempPath = req.file.path;
+	//set up target Path and original file name
+	var targetPath = 'public/images/'+ req.file.originalname;
+	//use fs module to read the file then write it to the correct place
+	fs.readFile(tempPath, (error, fileContents)=>{
+		//takes three arguments: where, what, callback
+		fs.writeFile(targetPath, fileContents, (error)=>{
+			if (error) throw error; 
+			var insertQuery = "INSERT INTO images (imageUrl) VALUE (?)";
+			connection.query(insertQuery, [req.file.originalname], (DBerror, results, fields)=>{
+				if(DBerror) throw error; 
+				res.redirect('/')
+			})
+			// res.json("uploaded succesfully"); 
+		})
+	}); 
+
+})
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
